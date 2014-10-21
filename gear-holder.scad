@@ -1,8 +1,8 @@
 // Dimensions
 
 // PCB (to get the fit right)
-PCB_WIDTH = 50;
-PCB_LENGTH = 70;
+PCB_WIDTH = 75;
+PCB_LENGTH = 100;
 PCB_HEIGHT = 2;
 
 PCB_HOLES_DIAM = 3;
@@ -14,24 +14,39 @@ WALLS_WIDTH = 2;
 
 // Gears
 GEARS_WIDTH = 5;
-FIRST_AXIS_X = 10;
+FIRST_AXIS_X = 15;
+SECOND_AXIS_X = 45;
+AXIS_DIAMETER = 2;
 
 module PCB()
 {
   cube([PCB_WIDTH, PCB_LENGTH, PCB_HEIGHT], center=true);
   translate([PCB_WIDTH/2-PCB_HOLES_X, PCB_LENGTH/2-PCB_HOLES_Y, 0]) {
-    cylinder(100, d=PCB_HOLES_DIAM, center=true);
+    cylinder(30, d=PCB_HOLES_DIAM, center=true);
   }
   translate([-(PCB_WIDTH/2-PCB_HOLES_X), PCB_LENGTH/2-PCB_HOLES_Y, 0]) {
-    cylinder(100, d=PCB_HOLES_DIAM, center=true);
+    cylinder(30, d=PCB_HOLES_DIAM, center=true);
   }
   translate([PCB_WIDTH/2-PCB_HOLES_X, -(PCB_LENGTH/2-PCB_HOLES_Y), 0]) {
-    cylinder(100, d=PCB_HOLES_DIAM, center=true);
+    cylinder(30, d=PCB_HOLES_DIAM, center=true);
   }
   translate([-(PCB_WIDTH/2-PCB_HOLES_X), -(PCB_LENGTH/2-PCB_HOLES_Y), 0]) {
-    cylinder(100, d=PCB_HOLES_DIAM, center=true);
+    cylinder(30, d=PCB_HOLES_DIAM, center=true);
   }
 }
+
+module MOTOR()
+{
+  MOTOR_WIDTH = 20;
+  MOTOR_HEIGHT = 15;
+  MOTOR_LENGTH = 25;
+
+  SHAFT_LENGTH = 10;
+
+  cube([MOTOR_LENGTH, MOTOR_WIDTH, MOTOR_HEIGHT]);
+  //cylinder(SHAFT_LENGTH, )
+}
+
 
 module GEAR_HOLDER()
 {
@@ -60,13 +75,19 @@ module GEAR_HOLDER()
     cube([width_cut, length_cut, height+4]);
   }
 
-  translate([-PCB_WIDTH/2, -length/2-FIRST_AXIS_X, 0])
+  translate([-PCB_WIDTH/2, -length/2+FIRST_AXIS_X, 0])
   {
-    #rotate([90, 0, 90]) cylinder(10, d=2, center=true);
+    rotate([90, 0, 90]) cylinder(20, d=2, center=true);
   }
-  PCB();
+
+  translate([-PCB_WIDTH/2, -length/2+SECOND_AXIS_X, 0])
+  {
+    rotate([90, 0, 90]) cylinder(20, d=2, center=true);
+  }
+  #PCB();
   }
 }
 
 //PCB();
+MOTOR();
 GEAR_HOLDER();
