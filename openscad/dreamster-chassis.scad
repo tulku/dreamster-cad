@@ -6,63 +6,67 @@ $fn = 50;
 
 
 // Chassis parameters
-depth = 100;
-width = 120;
-height = 20;
-thickness = 1.5;
-inner_frame = 25;
+depth = 95;
+width = 90;
+height_wall = 25+8;
+thickness = 4;
+thickness_wall = 5;
+inner_frame = 35;
 mount_holes_diameter = 3;
 
-// Chassis body
-difference() { 
-
-	// Outer box
-	cube ([depth, width, height]); 
-
-	translate ([thickness / 2, thickness / 2, thickness / 2]) {
-		// Inner space for pcb/motors
-		cube ([depth - thickness, width - thickness, height + thickness * 2]);
-	}
-
-	translate ([inner_frame / 2, inner_frame / 2, thickness - 10]) {
-		cube ([depth - inner_frame, width - inner_frame, height + thickness * 2]);
-	}
-
-	// Holes to bolt the PCB
-	for (i = [
-		[inner_frame / 4,         inner_frame / 4,         0 - thickness],
-		[depth - inner_frame / 4, inner_frame / 4,         0 - thickness],
-		[depth - inner_frame / 4, width - inner_frame / 4, 0 - thickness],
-		[inner_frame / 4,         width - inner_frame / 4, 0 - thickness]
-	]) {
-		translate (i) 
-		cylinder(h = thickness * 2, r = mount_holes_diameter / 2);
-	}
-
-	// Clearance for distance sensors
-	for (i = [
-		// FIXME: sizes must be relative to chassis size
-		[-thickness,        20,         height], 
-		[depth - thickness, width - 40, height],
-		[-thickness,        width - 40, height],
-		[depth - thickness, 20,         height]
-	]) {
-		translate(i)
-		distance_sensor();
-	}
-
-	translate ([60, -thickness, height]) {
-		rotate ([0, 0, 90]) {
-			distance_sensor();
+module distance_sensor() {
+  radio = 16.3 / 2;
+  sep = 25.7;
+  translate([-10, -(radio)-(sep-2*radio)/2, 0]) {
+	rotate ([0, 90, 0]) {
+		cylinder (h = 20, r = radio);
+		translate ([0, sep, 0]) {
+			cylinder (h = 20, r = radio);
 		}
 	}
 }
+}
 
-module distance_sensor() {
-	rotate ([0, 90, 0]) {
-		cylinder (h = 10, r = 16.3 / 2);
-		translate ([0, 25.7, 0]) {
-			cylinder (h = 10, r = 16.3 / 2);
-		}
-	}
+module base() {
+  inn_width = width - inner_frame;
+  inn_depth = depth - inner_frame;
+  difference() {
+    cube([width, depth, thickness], center=true);
+    cube([inn_width, inn_depth, thickness+1], center=true);
+  }
+}
+
+module side_wall() {
+  difference() {
+    cube([thickness_wall, depth, height_wall], center=true);
+    translate([0, -43/2-2, height_wall/2]) {
+      distance_sensor();
+    }
+    translate([0, 43/2+2, height_wall/2]) {
+      distance_sensor();
+    }
+  }
+}
+
+module front_wall() {
+  difference() {
+    cube([thickness_wall, 50, height_wall], center=true);
+    translate([0,0,height_wall/2]) {
+      distance_sensor();
+    }
+  }
+}
+
+
+base();
+translate([width/2-thickness_wall/2, 0, height_wall/2+thickness/2]) {
+  side_wall();
+}
+translate([-(width/2-thickness_wall/2), 0, height_wall/2+thickness/2]) {
+  side_wall();
+}
+translate([0, depth/2-thickness_wall/2-7, height_wall/2+thickness/2]) {
+  rotate([0, 0, 90]) {
+    front_wall();
+  }
 }
