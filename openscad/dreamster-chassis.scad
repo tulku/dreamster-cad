@@ -35,6 +35,12 @@ module base() {
     translate([0, -hole_pos_y, 0]) {
       cube([hole_width, hole_depth, thickness+1], center=true);
     }
+	translate([-37, -depth/2 + 30, -3]) {
+		cube([3, 25, 6], center=false);
+	}
+	translate([35, -depth/2 + 30, -3]) {
+		cube([3, 25, 6], center=false);
+	}
   }
 }
 
@@ -72,3 +78,5 @@ translate([0, depth/2-thickness_wall/2-7, height_wall/2+thickness/2]) {
     front_wall();
   }
 }
+
+

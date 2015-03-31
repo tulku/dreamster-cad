@@ -37,22 +37,22 @@ difference() {
     cube([ancho_interno,largo_interno,alto_interno+.01]);
   translate([-.1,largo_externo-largo_agujero-espesor_pared,espesor_pared])
     cube([ancho_agujero+espesor_pared+.1,largo_agujero+espesor_pared+.01,alto_interno+.1]);
-  translate([37, 50.5, -5])
-	 cylinder(h = 10, r = 1.45, $fn=25, center = false);
+  translate([37, 49.5, -5])
+	 cylinder(h = 10, r = 1.6, $fn=25, center = false);
 }
 
 difference() {
 	translate([-((ancho_base-ancho_externo)/2 - delta_ancho),0,-alto_base/3])
    		cube([ancho_base, largo_externo, alto_base]);
 	translate([37, 50.5, -5])
-		cylinder(h = 10, r = 1.45, $fn=25, center = false);
+		cylinder(h = 10, r = 1.6, $fn=25, center = false);
 }
 
 difference(){
 	translate([-lbase_delta, -abase_delta, -alto_base/3])
 		cube([10, 10, alto_base]);
 	translate([-4.5, 0.7, -alto_base/3])
-		cylinder(h = alto_base*2, r = 1.45, $fn=25, center = false);
+		cylinder(h = alto_base*2, r = 1.6, $fn=25, center = false);
 }
 
 *difference(){
