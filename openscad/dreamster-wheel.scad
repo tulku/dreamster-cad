@@ -241,7 +241,7 @@ chamferOnly          = false; // Set to true to use chamfers (straight 45-degree
 //   feature was suggested by AUGuru. 
 
 shaftDiameter        = 3.5;          // The diameter of the motor shaft
-shaftFlatDiameter    = 3.5;          // The diameter of the motor shaft at the flat, or shaftDiameter for no flat.
+shaftFlatDiameter    = 2.8;          // The diameter of the motor shaft at the flat, or shaftDiameter for no flat.
 
 setScrewCount        = 0;          // The number of set screws/nuts to render, spaced evenly around the shaft 
 setScrewDiameter     = 3;          // The diameter of the set screw. 3 is the default for an M3 screw. 
