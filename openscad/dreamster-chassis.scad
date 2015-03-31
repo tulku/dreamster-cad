@@ -8,11 +8,13 @@ $fn = 50;
 // Chassis parameters
 depth = 95;
 width = 90;
-height_wall = 25+8;
-thickness = 4;
-thickness_wall = 5;
-inner_frame = 35;
+height_wall = 25+8+1.5;
+thickness = 3;
+thickness_wall = 3;
 mount_holes_diameter = 3;
+hole_width = 40;
+hole_depth = 50;
+hole_pos_y = 10;
 
 module distance_sensor() {
   radio = 16.3 / 2;
@@ -28,11 +30,11 @@ module distance_sensor() {
 }
 
 module base() {
-  inn_width = width - inner_frame;
-  inn_depth = depth - inner_frame;
   difference() {
     cube([width, depth, thickness], center=true);
-    cube([inn_width, inn_depth, thickness+1], center=true);
+    translate([0, -hole_pos_y, 0]) {
+      cube([hole_width, hole_depth, thickness+1], center=true);
+    }
   }
 }
 
