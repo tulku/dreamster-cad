@@ -10,7 +10,7 @@ depth = 95;
 width = 90;
 height_wall = 25+8+1.5;
 thickness = 3;
-thickness_wall = 3;
+thickness_wall = 3.5;
 mount_holes_diameter = 3;
 hole_width = 40;
 hole_depth = 50;
@@ -41,8 +41,24 @@ module base() {
 	translate([35, -depth/2 + 30, -3]) {
 		cube([3, 25, 6], center=false);
 	}
+	translate([17, -depth/2 + 8, 0]) {
+		cube([10, 10, 3], center=false);
+	}
+
+	translate ([20, -depth/2 + 69, -5]) {
+		cylinder (h = 20, r = 1.75);
+	}
+
+	translate ([-8.5, -depth/2 + 69, -5]) {
+		cylinder (h = 20, r = 1.75);
+	}
+
+	translate ([-22.5, -depth/2 + 19, -5]) {
+		cylinder (h = 20, r = 1.75);
+	}
   }
 }
+
 
 module side_wall() {
   difference() {
