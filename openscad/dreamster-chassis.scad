@@ -1,4 +1,4 @@
-// Dreamster parametric prototype chassis V1 
+// Dreamster parametric prototype chassis V2
 
 
 // Default resolution (set it lower for faster rendering)
